@@ -1,0 +1,28 @@
+name: Checks
+
+on:
+  pull_request:
+  merge_group:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  # A skill with broken frontmatter is an absent skill: the loader skips it and says
+  # nothing. This gate holds every skill to the shape the loader needs, so a broken
+  # skill cannot masquerade as a missing one.
+  skills:
+    if: github.event_name == 'pull_request' || github.event_name == 'merge_group'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      # Controls first, and every one must reject known-broken input.
+      - run: python scripts/check_skills.py --self-test
+      - run: python scripts/check_skills.py
