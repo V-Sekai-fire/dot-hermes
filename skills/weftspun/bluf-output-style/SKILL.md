@@ -1,6 +1,6 @@
 ---
 name: bluf-output-style
-description: Default output style for every response in the workspace — bottom line up front (RFD 2059) paired with the tenseless continuous present voice (RFD 2172). Opening sentence carries the outcome; explanation follows as supporting detail, not suspense; next step closes. Universal, not only bad news. Apply on every response unless the user explicitly asks for a different structure.
+description: Default output style for every response in the workspace — bottom line up front (RFD66606-2059) paired with the tenseless continuous present voice (RFD66606-2172). Opening sentence carries the outcome; explanation follows as supporting detail, not suspense; next step closes. Universal, not only bad news. Apply on every response unless the user explicitly asks for a different structure.
 ---
 
 # BLUF output style
@@ -28,7 +28,7 @@ second, the surviving pieces third.
    or open question. Framed as a present gap ("the mesh USDZ carries
    a 1-joint dummy skeleton"), not as a task ("TODO: fix skeleton").
 
-## Prose voice: tenseless continuous present (RFD 2172)
+## Prose voice: tenseless continuous present (RFD66606-2172)
 
 Every sentence states what is currently true of the system. Three
 habits ruled out:
@@ -85,6 +85,6 @@ but the framing is still stated in one direct sentence.
 
 ## Related
 
-- RFD 2059 · Bad news reports lead with the bottom line (BLUF).
-- RFD 2172 · Prose speaks in the tenseless continuous present.
+- RFD66606-2059 · Bad news reports lead with the bottom line (BLUF).
+- RFD66606-2172 · Prose speaks in the tenseless continuous present.
 - Cross-refs: [[park-item-honestly]] · [[register-rfd-under-pen-oid]].

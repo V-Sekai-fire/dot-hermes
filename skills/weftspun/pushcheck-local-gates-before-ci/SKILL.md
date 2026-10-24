@@ -9,7 +9,7 @@ CI is the wrong place to catch a formatter, a missing include, or a
 copyright-header violation. Every one of those is a mechanism that
 already exists on the desk — the `.pre-commit-config.yaml` prek picks
 up, the SCons that compiles the module, the CMake that links the
-library. RFD 2229's retro named the pattern: **a part with no caller
+library. RFD66606-2229's retro named the pattern: **a part with no caller
 is not yet a part.** `pushcheck` is that caller.
 
 ## Reflex
@@ -252,7 +252,7 @@ operator already needed.
 
 ## Related
 
-- RFD 2229's retro passage names the exact pattern: "a part with no
+- RFD66606-2229's retro passage names the exact pattern: "a part with no
   caller is not yet a part." `pushcheck` is that caller.
 - `~/.local/bin/gh-app` mints the token the push uses; `pushcheck`
   runs before that step, no auth required until the push itself.

@@ -47,7 +47,7 @@ that landed under a number the register gives to something else is
 reissued under a fresh serial, not renumbered into place.
 
 **3. Write the RFD source.** `2-contract/manuals-weftspun/rfd/<N>-<slug>.exs`.
-The `.exs` is what is tracked. RFD 2232 makes `README.md` and `DETAILS.md`
+The `.exs` is what is tracked. RFD66606-2232 makes `README.md` and `DETAILS.md`
 build artifacts of `mix rfd.render`, gitignored and never hand-edited:
 
     # Copyright (c) 2026 K. S. Ernest (iFire) Lee
@@ -103,7 +103,7 @@ one and not the other.
 
 ## Site 3: the private register
 
-Site 3 (`3NNN`, arc `66606.1.3`) is the private manuals checkout (`2-contract/manuals-smoke-water/SERIALS.exs`, register `VSekaiFire`), and the register lives in that private repo, never in the FOSS tree (RFD 1000 / pen-66606 `sitesWithoutRegister`). Rows are `serial N, "<directory slug>"` only: the check reads serial + slug, so the human titles never leave the private repo. A 3NNN RFD that moved to the public register is recorded there as a 2NNN row and excluded from the private register (not double-counted). The FOSS `scripts/check_anti_entropy.py` reads it as `../manuals-smoke-water/SERIALS.exs` in its `REGISTERS` list; the path only resolves inside a `repo` workspace, and the check exits 0 when no `.repo` is above it, so a standalone clone or CI never touches it.
+Site 3 (`3NNN`, arc `66606.1.3`) is the private manuals checkout (`2-contract/manuals-smoke-water/SERIALS.exs`, register `VSekaiFire`), and the register lives in that private repo, never in the FOSS tree (RFD66606-1000 / pen-66606 `sitesWithoutRegister`). Rows are `serial N, "<directory slug>"` only: the check reads serial + slug, so the human titles never leave the private repo. A 3NNN RFD that moved to the public register is recorded there as a 2NNN row and excluded from the private register (not double-counted). The FOSS `scripts/check_anti_entropy.py` reads it as `../manuals-smoke-water/SERIALS.exs` in its `REGISTERS` list; the path only resolves inside a `repo` workspace, and the check exits 0 when no `.repo` is above it, so a standalone clone or CI never touches it.
 
 ## Moving a private 3NNN RFD to the FOSS register ("migrate it to the FOSS manuals")
 

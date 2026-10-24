@@ -65,7 +65,7 @@ When `bao token lookup` fails, the token has expired. Log in again with the bund
 
     bao login -method=cert -no-store -token-only > $D/session-token
 
-With no `name=`, bao picks the desk's own entry (`auth/cert/certs/<agent>`, RFD 2195: one entry
+With no `name=`, bao picks the desk's own entry (`auth/cert/certs/<agent>`, RFD66606-2195: one entry
 per agent, no shared wildcard entry). `-no-store` keeps the login out of the shared
 `~/.bao-token`, which a peer session on the same desk would otherwise overwrite.
 
@@ -89,7 +89,7 @@ it does not give a shell. Use it for port-forwarding to 2222:
 - **Private CA.** The cluster's cert is signed by `chibifire.com Root CA`. Verify against
   `root-ca.pem`; `-tls-skip-verify` is both wrong and blocked by the auto-mode classifier.
 - **`name=agents-weftspun` fails as if the cert were bad.** That shared entry was deleted
-  (RFD 2195), and naming any entry that does not trust the cert answers
+  (RFD66606-2195), and naming any entry that does not trust the cert answers
   `invalid certificate or no client certificate supplied`. The cert is fine and no new CSR is
   needed; drop `name=`.
 - **Tunnel cert TTL ~1 h.** Re-mint (above) whenever `ssh-keygen -L -f ssh-key-cert.pub` shows

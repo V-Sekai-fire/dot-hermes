@@ -175,7 +175,7 @@ each finishes and resumes on rerun, then follow up with individual
 directory, nothing lands until it finishes. Do not use it for a staging
 directory over about 50 MB.
 
-Xet stays off. RFD 2196 rule 5 measured the xet finalize stalling at
+Xet stays off. RFD66606-2196 rule 5 measured the xet finalize stalling at
 6 KB/s and timing out at 94 GB / 110 shards; LFS + `hf_transfer` is the
 path that landed. The hub now warns that `HF_HUB_ENABLE_HF_TRANSFER` is
 deprecated in favour of `HF_XET_HIGH_PERFORMANCE` (2026-09-04) —
@@ -183,7 +183,7 @@ deprecated is not removed; accept the warning, do not set the xet
 variable, because it turns on the path the RFD measured as broken. An
 earlier revision of this step set it; retracted the same day. Whether
 `upload-large-folder`'s per-file commits sidestep the finalize under
-xet is unmeasured; RFD 2196 binds until a ≥50 GB push is timed both
+xet is unmeasured; RFD66606-2196 binds until a ≥50 GB push is timed both
 ways. Verified against huggingface_hub 0.36.2: `HfApi.upload_folder`
 has no `multi_commits` parameter in this version, so the CLI above is
 the resumable path, not a Python-side flag.

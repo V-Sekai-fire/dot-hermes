@@ -10,7 +10,7 @@ description: Coordinate every live Claude Code session (and its subprocesses) so
 Any Claude Code session alive on any machine gets a canonical identity **the moment it starts**, whether or not it plans to write. Identity is a per-agent client cert:
 
 - **CN:** `<session-slug>.agents.weftspun` (e.g. `mps-45994b.agents.weftspun`)
-- **Signed by:** `chibifire.com Intermediate CA v2` (RFD 2142)
+- **Signed by:** `chibifire.com Intermediate CA v2` (RFD66606-2142)
 - **Delivered as:** 1Password Secure Note with `cert`, `key`, `ca_chain`, `serial`, `expiration` fields in `notesPlain`
 - **TTL:** 720 h (30 d), auto-renew via cert-auth `token_period=3600`
 
@@ -20,7 +20,7 @@ Read/write policy is a **separate** decision after identity lands. A newly-provi
 
 ## The coordination store
 
-Backing: **OpenBao KV v2** mount `agents/` on weftspun-bao (Tailscale-private, mTLS enforced), deployed per RFD 2195. The tailnet node takes a new numeric suffix on each redeploy (`weftspun-bao-8.stonecat-ratio.ts.net` at the time of writing) while the server cert keeps its original names, so address the online node and pin `BAO_TLS_SERVER_NAME=weftspun-bao.internal`; the `bao-fly-mtls-tunnel` skill has the lookup and the Fly route.
+Backing: **OpenBao KV v2** mount `agents/` on weftspun-bao (Tailscale-private, mTLS enforced), deployed per RFD66606-2195. The tailnet node takes a new numeric suffix on each redeploy (`weftspun-bao-8.stonecat-ratio.ts.net` at the time of writing) while the server cert keeps its original names, so address the online node and pin `BAO_TLS_SERVER_NAME=weftspun-bao.internal`; the `bao-fly-mtls-tunnel` skill has the lookup and the Fly route.
 
 - One row per live agent, keyed by full CN (`agents/<cn>`).
 - Row payload is one JSON value at field `row`.
@@ -132,6 +132,6 @@ Any op crossing any of those thresholds — OR any `ListAgents` result showing a
 
 ## Related
 
-- RFD 2142 — Bao PKI zerotrust service TLS
-- RFD 2195 — weftspun-bao Tailscale sidecar
-- RFD 2196 — HuggingFace dataset viewer rules
+- RFD66606-2142 — Bao PKI zerotrust service TLS
+- RFD66606-2195 — weftspun-bao Tailscale sidecar
+- RFD66606-2196 — HuggingFace dataset viewer rules

@@ -1,6 +1,6 @@
 ---
 name: parquet-rewrite-row-groups
-description: Rewrite existing parquet shards to enforce a row-group size cap without re-extracting from source. Use when the HuggingFace viewer errors with `Parquet error: Scan size limit exceeded` (rule 2 of RFD 2196) or when any consumer requires row groups under a specific byte ceiling. Triggers on "row group too big", "scan size limit exceeded", "parquet rewrite", "HF viewer TooBigContentError", "fix parquet row groups". Not for the initial write; the initial write should pass `row_group_size` directly to `pq.write_table`.
+description: Rewrite existing parquet shards to enforce a row-group size cap without re-extracting from source. Use when the HuggingFace viewer errors with `Parquet error: Scan size limit exceeded` (rule 2 of RFD66606-2196) or when any consumer requires row groups under a specific byte ceiling. Triggers on "row group too big", "scan size limit exceeded", "parquet rewrite", "HF viewer TooBigContentError", "fix parquet row groups". Not for the initial write; the initial write should pass `row_group_size` directly to `pq.write_table`.
 tools: Read, Write, Edit, Bash
 ---
 
@@ -89,7 +89,7 @@ Only remove if a downstream consumer explicitly errors on empty groups.
   writing the shard the first time; this skill is only for shards
   already published in the wrong shape.
 - **Schema changes.** This rewrites row groups only; if the shape is
-  wrong (e.g. `sequence:` vs `list:` per RFD 2196 rule 6), you need
+  wrong (e.g. `sequence:` vs `list:` per RFD66606-2196 rule 6), you need
   a schema rewrite, not this.
 - **Cross-shard rebalancing.** This preserves the source's shard
   boundaries. If shards themselves are the wrong size (~1 GB each,
@@ -97,6 +97,6 @@ Only remove if a downstream consumer explicitly errors on empty groups.
 
 ## Related
 
-- RFD 2196 rule 2 — row groups ≤ 300 MB (this skill enforces it retroactively).
+- RFD66606-2196 rule 2 — row groups ≤ 300 MB (this skill enforces it retroactively).
 - `hf-upload-large` — companion skill for the re-upload step.
 - `hf-parquet-image-column` — the initial-write skill this one complements.

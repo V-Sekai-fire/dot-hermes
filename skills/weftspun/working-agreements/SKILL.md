@@ -61,7 +61,7 @@ Build dependent startup as a state machine driven by an event queue: start the d
 
 "Worksteal while waiting" means take an issue from the shared queue while long jobs run.
 
-1. The queue is the open issues of `V-Sekai-fire/awesome-v-sekai-fire` (each labelled `from:<source repo>`). RFD 2294 still names `contract-zone-backend` #58, but that repo has issues turned off and no `worksteal` label exists anywhere; ask the operator before amending the RFD line.
+1. The queue is the open issues of `V-Sekai-fire/awesome-v-sekai-fire` (each labelled `from:<source repo>`). RFD66606-2294 still names `contract-zone-backend` #58, but that repo has issues turned off and no `worksteal` label exists anywhere; ask the operator before amending the RFD line.
 2. List: `gh issue list -R V-Sekai-fire/awesome-v-sekai-fire --state open --json number,title,assignees,labels,createdAt,comments`; skip pinned issues and ones with an assignee.
 3. Read the comments before choosing: the status lives there, and an issue whose only unchecked item is optional is near-done, not open work.
 4. Take the oldest unclaimed one and post a one-line claim comment naming the open item; post measurements to the same issue as they land.
@@ -121,11 +121,11 @@ Blocklist table in CLAUDE.md; arguments in BLOCKLIST.md; `check_blocklist_detail
 
 ## Standard practices
 
-RFD 2294's "Interchangeable sessions" (`2-contract/manuals-weftspun/rfd/2294-*.exs`) is the one home for the practices every session follows: attribution and commit authorship, Elixir automation, CPU-only cloud work with software GPU emulators blocklisted, the GPU Cloud and GPU-Free Cloud split, capability-scoped workers, contact sheets as CI-artifact videos, and body-only garment fits. RFD 2295 owns the reply form: confidence tags, ISO 8601 intervals, and the closing known-unknown questions. Read them there; do not restate them here or in memory.
+RFD66606-2294's "Interchangeable sessions" (`2-contract/manuals-weftspun/rfd/2294-*.exs`) is the one home for the practices every session follows: attribution and commit authorship, Elixir automation, CPU-only cloud work with software GPU emulators blocklisted, the GPU Cloud and GPU-Free Cloud split, capability-scoped workers, contact sheets as CI-artifact videos, and body-only garment fits. RFD66606-2295 owns the reply form: confidence tags, ISO 8601 intervals, and the closing known-unknown questions. Read them there; do not restate them here or in memory.
 
 ## Attribution
 
-No agent attribution in commits, PRs, comments, or docs; RFD 2294 states the rule. `settings.json` here turns the tool's own attribution off, and `hooks/strip_claude_footer.py` prompts a read-back after every GitHub create, because the connector appends a footer anyway.
+No agent attribution in commits, PRs, comments, or docs; RFD66606-2294 states the rule. `settings.json` here turns the tool's own attribution off, and `hooks/strip_claude_footer.py` prompts a read-back after every GitHub create, because the connector appends a footer anyway.
 
 ## Asking
 

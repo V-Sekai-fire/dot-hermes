@@ -6,7 +6,7 @@ tools: Read, Grep, Glob, Bash
 
 # Find unparked items
 
-"Parked" is not a canonical RFD 1000 state (RFD 1000 lists prediscussion,
+"Parked" is not a canonical RFD66606-1000 state (RFD66606-1000 lists prediscussion,
 ideation, discussion, published, committed, abandoned, moved — no
 `parked`). Parked means backlog: the RFD stays open and has no
 `flight_level`, so it is off the board. Active means open and on the board. Task-list items carry a
@@ -26,7 +26,7 @@ of the answer), or "is anything blocking budget X".
 
 ## Work-stealing ("worksteal")
 
-The live shared queue is the open issues of `V-Sekai-fire/awesome-v-sekai-fire` (labels `from:<repo>` name the source repository); the `worksteal` label on contract-zone-backend that RFD 2294 names no longer exists (issues disabled there). Steal the oldest unclaimed, unpinned issue: `gh issue list -R V-Sekai-fire/awesome-v-sekai-fire --state open --json number,createdAt,assignees,isPinned,comments`, read its last comment for the open item, claim it with a comment naming the item you take, and post measurements back to the issue as they land. If the queue cannot be found, ask where it lives rather than inventing work.
+The live shared queue is the open issues of `V-Sekai-fire/awesome-v-sekai-fire` (labels `from:<repo>` name the source repository); the `worksteal` label on contract-zone-backend that RFD66606-2294 names no longer exists (issues disabled there). Steal the oldest unclaimed, unpinned issue: `gh issue list -R V-Sekai-fire/awesome-v-sekai-fire --state open --json number,createdAt,assignees,isPinned,comments`, read its last comment for the open item, claim it with a comment naming the item you take, and post measurements back to the issue as they land. If the queue cannot be found, ask where it lives rather than inventing work.
 
 ## Where to look
 
@@ -36,7 +36,7 @@ parked; without it, unparked.
 
 **RFD sources** — `2-contract/manuals-weftspun/rfd/<N>-<slug>.exs`. The
 `.exs` is what is tracked; `README.md` is a `mix rfd.render` artifact
-(RFD 2232) and is absent until the render runs. An unparked RFD has an
+(RFD66606-2232) and is absent until the render runs. An unparked RFD has an
 open state AND a `flight_level` line. An open RFD without one is backlog.
 
 ## Pipeline
@@ -97,7 +97,7 @@ When the operator asks to study the RFDs, or to triage them (keep / defer / park
 - **Task-list `[PARKED · ...]` prefix trumps the RFD survey.** An operator who wants a truly empty queue deletes parked tasks from the list; the RFD stays shelved in prose. Don't resurrect a deleted task by re-reading its RFD.
 - **The task list can drift from the RFDs.** An earlier version of the workspace amend on PR #162 landed only 1 of 5 park edits; the task list flagged all 5 as parked while the RFD READMEs still said `discussion` with no shelved note. That's a real class of drift — always cross-check both directions.
 - **Session ownership matters.** An unparked RFD you did not open belongs to whoever opened it. Report it, don't act on it.
-- **`gh pr view` shows the truth about a PR that says MERGED.** Auto-merge can fire on an amend-in-flight; the merged commit may not include your last force-push. When reporting on delivered work, check the merged commit's actual diff, not the local branch you thought you pushed. See the RFD 2167 incident in the session log.
+- **`gh pr view` shows the truth about a PR that says MERGED.** Auto-merge can fire on an amend-in-flight; the merged commit may not include your last force-push. When reporting on delivered work, check the merged commit's actual diff, not the local branch you thought you pushed. See the RFD66606-2167 incident in the session log.
 - **The survey must enumerate the whole tree, not a numeric prefix.** A glob like `rfd/2*-*.exs` drops every 1xxx RFD, which is the oldest open work, so the queue becomes an artifact of the pattern. Use `rfd/*.exs`.
 - **Never call an item idle because the inventory has no data on it.** A blank push column comes from the inventory's coverage, not from the work. Proposing to park work the org shipped that same day costs the operator's trust. Do step 5a before writing any park list.
 - **No `names-repo` tag is not "no work".** Most board RFDs name no repo, so the inventory has no push date for them, and that is unknown, not idle. Before calling anything idle, check live activity by topic: `gh api orgs/<org>/repos?sort=pushed` for each org, plus Hugging Face models, Spaces and datasets (`/api/<kind>?author=chibifire&sort=lastModified`). The org works on HF as much as on GH. A park list built on that gap got corrected by the operator.
