@@ -86,7 +86,7 @@ Per-view metrics: `depth_l1` (scene units, unit cube), `normal_l1`,
 
 ## Rules that catch failure modes
 
-- **Fill the frame (operator, 2026-10-17; weftspun RFD 1136).** For an orbit sheet, keep each view's direction and pan + dolly along its ray until the subject spans ~94% of the frame; the derived radius alone leaves a T-pose avatar small. View 0 (pitch -90) needs an up vector not parallel to the ray or it renders empty. Import `camera()` from `render_view.py`; never hand-roll an orbit.
+- **Fill the frame (operator, 2026-10-17; weftspun RFD66606-1136).** For an orbit sheet, keep each view's direction and pan + dolly along its ray until the subject spans ~94% of the frame; the derived radius alone leaves a T-pose avatar small. View 0 (pitch -90) needs an up vector not parallel to the ray or it renders empty. Import `camera()` from `render_view.py`; never hand-roll an orbit.
 
 - **Never rebuild a view schedule.** `sphere_hammersley_sequence` from Pixal3D is the sequence; a hand-picked "front + 3/4 + profile" layout drops error along the travel axis by nothing while adding it across (five soda cans vs three and a half).
 - **The AOV sidecar is the ground truth for depth**, not the PNG's alpha or a grayscale reduction. 8-bit depth is the "convenient proxy" rule 1 warns about.

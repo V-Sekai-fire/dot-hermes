@@ -1,6 +1,6 @@
 ---
 name: voice-clone-maskscore-ladder
-description: Build a MaskScore-style 10-rank voice-clone gradient corpus from a set of speech recordings, with a multi-judge ASR panel and wavlm+wer scoring. Use when a new speech dataset needs to enter the RFD 1173 MaskScore Speech stub (RFD 2164), when a new SpeakingFaces subject or similar CC-BY audio source needs to be processed, or when a downstream reward-model distillation (RFD 2167) needs training data.
+description: Build a MaskScore-style 10-rank voice-clone gradient corpus from a set of speech recordings, with a multi-judge ASR panel and wavlm+wer scoring. Use when a new speech dataset needs to enter the RFD66606-1173 MaskScore Speech stub (RFD66606-2164), when a new SpeakingFaces subject or similar CC-BY audio source needs to be processed, or when a downstream reward-model distillation (RFD66606-2167) needs training data.
 tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
@@ -28,7 +28,7 @@ The reference implementation is in `6-datasource/anny-render-corpus`, run under 
 
 **4. Score** (`score_voice_clones.py`): wavlm_cos speaker embedding (Microsoft WavLM Base+ SV) + voxtral-WER on 15 clips × 10 ranks. Verify the gradient is monotonic across identity → perturbation → wrong content → wrong subject.
 
-**5. Emit ETNF parquets** (`emit_speech_stub.py`): three ZSTD files — root (per clip), candidates (20 per clip: 10 audio + 10 transcript), scores (long-form metric_name/value). All follow the unified schema from RFD 1173.2165.
+**5. Emit ETNF parquets** (`emit_speech_stub.py`): three ZSTD files — root (per clip), candidates (20 per clip: 10 audio + 10 transcript), scores (long-form metric_name/value). All follow the unified schema from RFD66606-1173.2165.
 
 **6. Upload to HF** (`hf upload ...`) into `chibifire/maskscore-rung-1-bootstrap/<stub>/` with `CITATION.cff` at repo root citing every source under CC-BY-4.0 or MIT (SpeakingFaces, Parakeet, allosaurus, and Apache/MIT acknowledgements for the rest). Update `README.md` `configs` block with `<stub>/*.parquet` entries so the HF dataset viewer picks them up.
 
@@ -42,4 +42,4 @@ The reference implementation is in `6-datasource/anny-render-corpus`, run under 
 - **Qwen3-TTS Base** (not CustomVoice) is the zero-shot cloning variant. CustomVoice uses 9 premium timbres, not arbitrary reference audio.
 - **`x_vector_only_mode=True`** for wrong-subject cloning — avoids needing transcripts of the different-speaker source.
 - **Voxtral batch on MPS is ~7-10s/clip**, not ~1s; budget accordingly and print per-clip progress in scripts.
-- **The Voice-stub USDZ needs the full 78-joint skeleton + skin weights** if any candidate uses bone rotations; a 1-joint dummy skeleton silently ignores pose animation. See RFD 2162 for the fix.
+- **The Voice-stub USDZ needs the full 78-joint skeleton + skin weights** if any candidate uses bone rotations; a 1-joint dummy skeleton silently ignores pose animation. See RFD66606-2162 for the fix.

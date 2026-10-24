@@ -1,6 +1,6 @@
 ---
 name: editscore-ladder-run
-description: Run an EditScore-7B pairwise ladder for an image-edit generator (SDEdit / diffusion / LoRA / distilled step-count sweep) on held-out shard pairs. Use when a new candidate generator needs to be measured against an existing baseline for a shipping-decision (RFD 2186 dressing overlay is the reference case), or when a step-count sweet spot needs to be found before committing distillation compute. Aggregate reports wins / mean / median on the 0-25 overall axis with distribution-level N. Ships as an HF dataset per RFD 2196 shape.
+description: Run an EditScore-7B pairwise ladder for an image-edit generator (SDEdit / diffusion / LoRA / distilled step-count sweep) on held-out shard pairs. Use when a new candidate generator needs to be measured against an existing baseline for a shipping-decision (RFD66606-2186 dressing overlay is the reference case), or when a step-count sweet spot needs to be found before committing distillation compute. Aggregate reports wins / mean / median on the 0-25 overall axis with distribution-level N. Ships as an HF dataset per RFD66606-2196 shape.
 tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
@@ -8,7 +8,7 @@ tools: Read, Write, Edit, Grep, Glob, Bash
 
 Measure a candidate image-edit generator against a baseline on held-out `(source, edited, instruction)` triples with EditScore-7B pairwise. Ships an HF dataset carrying the images and per-pair scores, and an aggregate that decides gating questions like "does the candidate clear the 80% wins-over-baseline threshold?"
 
-The reference case is the LLaDA-o work: the n=1 → n=5 → n=20 chain confirmed 16-step SDEdit as the sweet spot and cleared RFD 2198's distillation gate. See `logbook-lladao-n1-quality-beats-omnigen2.md`, `logbook-lladao-5pair-step-sweep.md`, `logbook-lladao-n20-held-out-sweep.md`.
+The reference case is the LLaDA-o work: the n=1 → n=5 → n=20 chain confirmed 16-step SDEdit as the sweet spot and cleared RFD66606-2198's distillation gate. See `logbook-lladao-n1-quality-beats-omnigen2.md`, `logbook-lladao-5pair-step-sweep.md`, `logbook-lladao-n20-held-out-sweep.md`.
 
 ## When to invoke
 
@@ -30,9 +30,9 @@ The reference case is the LLaDA-o work: the n=1 → n=5 → n=20 chain confirmed
 
 **5. Score with EditScore-7B pairwise.** `evaluate([source, edited], text_prompt)` returns `{PF, SC, PQ, overall}` on the 0-25 scale. `overall` is the shipping axis; PF (prompt-following), SC (source-consistency), PQ (perceptual-quality) are the axes to read when overall zeros to explain the failure mode (a zero on any axis zeroes overall via the multiplicative aggregator). See memory `editscore-api-surface`.
 
-**6. Aggregate.** Report on the same table: mean overall, median overall, wins-over-baseline count and percent (with the baseline number stated inline), non-zero count. If a gating threshold exists (RFD 2198's 80% for LLaDA-o), state it and whether the run cleared it.
+**6. Aggregate.** Report on the same table: mean overall, median overall, wins-over-baseline count and percent (with the baseline number stated inline), non-zero count. If a gating threshold exists (RFD66606-2198's 80% for LLaDA-o), state it and whether the run cleared it.
 
-**7. Publish as HF dataset per RFD 2196 shape.** Repo naming: `chibifire/<generator>-<experiment>-<yyyymmdd>` (`chibifire/lladao-step-sweep-shard90-20260904` is the reference case). Parquet schema: image columns as `struct<bytes:binary, path:string>`, ZStandard compression, row_groups ≤ 100 for HF viewer safety. `CITATION.cff` at repo root; `dataset_info` YAML in the README for HF viewer type-inference. See memory `cuda-tests-ship-to-hf`.
+**7. Publish as HF dataset per RFD66606-2196 shape.** Repo naming: `chibifire/<generator>-<experiment>-<yyyymmdd>` (`chibifire/lladao-step-sweep-shard90-20260904` is the reference case). Parquet schema: image columns as `struct<bytes:binary, path:string>`, ZStandard compression, row_groups ≤ 100 for HF viewer safety. `CITATION.cff` at repo root; `dataset_info` YAML in the README for HF viewer type-inference. See memory `cuda-tests-ship-to-hf`.
 
 **8. Write a logbook entry.** Named `logbook-<generator>-<experiment>.md`, extending the prior entry in the chain (n=1 extends nothing, n=5 extends n=1, n=20 extends n=5). Structure: Question / Apparatus / Result / Reading / Verdict / Not measured / Cost paid. Retractions stay in place next to what they retract. Draft ends with the AI attestation canary if AI drafted it.
 
@@ -52,6 +52,6 @@ The reference case is the LLaDA-o work: the n=1 → n=5 → n=20 chain confirmed
 
 ## Not scoped
 
-- **Training a scorer:** RFD 1157 covers EditScore-7B's LoRA training. This skill uses the trained scorer, doesn't retrain it.
+- **Training a scorer:** RFD66606-1157 covers EditScore-7B's LoRA training. This skill uses the trained scorer, doesn't retrain it.
 - **Comparing scorers:** if the question is "does EditScore agree with human raters," that's a separate calibration study, not a ladder run.
 - **Multi-frame edits:** the pair schema is single-image. Video edits need a different pipeline.

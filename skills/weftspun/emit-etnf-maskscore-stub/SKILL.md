@@ -112,7 +112,7 @@ just `maskscore_speech.parquet`).
 
 - **No nulls anywhere.** A candidate that has no `candidate_target_text` (a mesh candidate) does not get the column at all; different-shape rows in different stubs are how ETNF handles it. A NULL is a schema mistake.
 - **No derivable columns.** `rank` derives from position, `candidate_kind` derives from `rank` in a fixed convention — pick one as source and stop. `AUDIO_KIND_BY_RANK` in `emit_speech_stub.py` hardcodes the convention rather than reading the (partial) manifest.json.
-- **Interned vocabularies live in a comment or a schema module**, not as scattered string literals. `task_type` and `input_asset_kind` values from RFD 1173 stay consistent across the eight stubs.
+- **Interned vocabularies live in a comment or a schema module**, not as scattered string literals. `task_type` and `input_asset_kind` values from RFD66606-1173 stay consistent across the eight stubs.
 - **Long-form scores.** Adding `normal_l2` is a new `metric_name` value, not a new column. A wide-form scores table freezes the metric set into the schema and fights the next metric.
 - **Print row and column counts to stdout** — three lines, one per parquet. A dataset viewer that shows 0 rows is a silent skip that only surfaces on HF, and rule 3 says name and count it locally first.
 - **`pa.Table.from_pylist(rows)`** for list-of-dicts. `pa.table(rows)` needs a schema.

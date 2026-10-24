@@ -13,9 +13,9 @@ pass carry the answer.
 
 ## The motivating failure
 
-RFD 2182 as it landed opens like this:
+RFD66606-2182 as it landed opens like this:
 
-> RFD 2171 fixed pipeline and deliverable vocabulary but left three
+> RFD66606-2171 fixed pipeline and deliverable vocabulary but left three
 > L3 gaps: who runs the atelier-workshop, who receives the shuttle,
 > and which market.
 
@@ -105,7 +105,7 @@ one file cold, not the whole set.
 
 ## What this skill does not fix
 
-- The 40-line cap on the rendered `README.md` (RFD 1000). Move detail
+- The 40-line cap on the rendered `README.md` (RFD66606-1000). Move detail
   into a `section`, which renders to `DETAILS.md`, if the rules above
   push the file over.
 - Cross-references *between* RFDs. No linker check ships; treat it as a
@@ -119,7 +119,7 @@ one file cold, not the whole set.
 - Drafting a new RFD.
 - Editing an existing RFD's `.exs` source in a substantive way (not
   a state flip or a one-line fix). `README.md` and `DETAILS.md` are
-  `mix rfd.render` artifacts (RFD 2232) and are never hand-edited.
+  `mix rfd.render` artifacts (RFD66606-2232) and are never hand-edited.
 - Superseding an RFD.
 - Reviewing an RFD PR — apply the three rules as a checklist.
 

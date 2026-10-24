@@ -201,6 +201,6 @@ run the count, name the region, report which nodes escaped the swap.
 Extended discussion in
 `logbook-dfc-bisect-methodology-rf-detr.md`
 (`weftspun/request-for-discussion`), which records the pattern
-converged on during the RFD 2199 rf-detr investigation.
+converged on during the RFD66606-2199 rf-detr investigation.
 `weftspun/rf-detr-cpp` `scripts/gate_dfc_parse.py` is the reference
 script that adds a macOS-gate cross-check on top of the plain parse.
