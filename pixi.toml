@@ -13,3 +13,5 @@ build = { cmd = "scons precision=double production=yes debug_symbols=yes", cwd =
 [dependencies]
 python = "3.11.*"
 scons = ">=4.11.1,<5"
+clang = ">=22.1.8,<23"
+lld = ">=23.1.5,<24"
