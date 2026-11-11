@@ -6,6 +6,7 @@ platforms = ["win-64"]
 version = "0.1.0"
 
 [tasks]
+build = { cmd = "scons precision=double production=yes debug_symbols=yes", cwd = "repositories/frontend" }
 
 [dependencies]
 python = "3.11.*"
