@@ -6,9 +6,9 @@ platforms = ["win-64"]
 version = "0.1.0"
 
 [tasks]
-configure-accesskit = {cwd = "repositories/frontend", cmd = "python misc/scripts/install_accesskit.py" }
-configure-dx12 = {cwd = "repositories/frontend", cmd = "python misc/scripts/install_d3d12_sdk_windows.py" }
-build = { cmd = "scons precision=double production=yes debug_symbols=yes", cwd = "repositories/frontend", depends-on = ["configure-dx12", "configure-accesskit"]}
+configure-accesskit = {cwd = "4-entities/zone", cmd = "python misc/scripts/install_accesskit.py" }
+configure-dx12 = {cwd = "4-entities/zone", cmd = "python misc/scripts/install_d3d12_sdk_windows.py" }
+build = { cmd = "scons precision=double production=yes debug_symbols=yes", cwd = "4-entities/zone", depends-on = ["configure-dx12", "configure-accesskit"]}
 
 [dependencies]
 python = "3.11.*"
