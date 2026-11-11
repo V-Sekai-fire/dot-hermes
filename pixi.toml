@@ -1,0 +1,12 @@
+[workspace]
+authors = ["K. S. Ernest (iFire) Lee <32321+fire@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "fabric"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.11.*"
+scons = ">=4.11.1,<5"
