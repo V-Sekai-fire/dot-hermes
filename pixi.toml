@@ -8,7 +8,15 @@ version = "0.1.0"
 [tasks]
 configure-accesskit = {cwd = "4-entities/zone", cmd = "python misc/scripts/install_accesskit.py" }
 configure-dx12 = {cwd = "4-entities/zone", cmd = "python misc/scripts/install_d3d12_sdk_windows.py" }
-build = { cmd = "scons precision=double production=yes debug_symbols=yes", cwd = "4-entities/zone", depends-on = ["configure-dx12", "configure-accesskit"]}
+install-fdb = {
+  cwd = ".",
+  cmd = 'powershell.exe -NoProfile -Command $base = "https://github.com/V-Sekai-fire/datasource-foundationdb/releases/download/7.3.79-weftspun-dev.6"; $d = Join-Path $PWD "fdb-client"; $root = Join-Path $d "root"; New-Item -ItemType Directory -Force $d | Out-Null; Set-Location $d; $msi = "foundationdb-7.3.82-SNAPSHOT-x64.msi"; curl.exe -fL --retry 3 -o "SHA256SUMS" "$base/SHA256SUMS"; curl.exe -fL --retry 3 -o $msi "$base/$msi"; $hash = (Get-FileHash $msi -Algorithm SHA256).Hash.ToLower(); $sum = (Select-String -Path "SHA256SUMS" -Pattern " $msi$").Line.Split()[0]; if ($hash -ne $sum) { throw "SHA256 mismatch: expected $sum got $hash" }; msiexec /a $msi /qn "TARGETDIR=$root" -Wait; $inc = Join-Path $root "PFiles\foundationdb\include\foundationdb"; $lib = Join-Path $root "PFiles\foundationdb\lib\foundationdb"; if (!(Test-Path (Join-Path $inc "fdb_c.h"))) { throw "fdb_c.h missing" }; if (!(Test-Path (Join-Path $lib "fdb_c.lib"))) { throw "fdb_c.lib missing" }; Write-Host "FDB client installed at $root"'
+}
+build = {
+  cwd = "4-entities/zone",
+  depends-on = ["configure-dx12", "configure-accesskit", "install-fdb"],
+  cmd = 'powershell.exe -NoProfile -Command $rootBase = Split-Path (Split-Path $PWD); $fd = Join-Path (Join-Path $rootBase "fdb-client\root") "PFiles\foundationdb"; $dll = Join-Path $fd "bin\fdb_c.dll"; if (Test-Path $dll) { $b = Join-Path $PWD "bin"; New-Item -ItemType Directory -Force $b | Out-Null; Copy-Item $dll (Join-Path $b "fdb_c.dll") -Force; Write-Host "copied fdb_c.dll to $b" }; scons precision=double production=yes debug_symbols=yes "fdb_include=" + (Join-Path $fd "include\foundationdb") "fdb_libpath=" + (Join-Path $fd "lib\foundationdb"); if ($LASTEXITCODE -ne 0) { throw "scons exited with code $LASTEXITCODE" }'
+}
 
 [dependencies]
 python = "3.11.*"
